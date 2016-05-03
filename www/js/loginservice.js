@@ -1,9 +1,9 @@
-mainApp.service('LoginService', function (localStorageService, $window, $state) {
+mainApp.service('LoginService', function (localStorageService, $window, $state, $cordovaOauth) {
 
 
   var redirectUri = 'http://localhost:8100/#/tab/leads';
   var authUrl = 'http://devops.touchbase.tools/oauth/v2/authorize';
-  var clientId = 'CLIENT_ID';
+  var clientId = '968862786848-8rjcjbtpclrovtr3raouekj0ieupng32.apps.googleusercontent.com';
 
   var url = authUrl+"?client_id="+clientId+"&grant_type=authorization_code&redirect_uri="+redirectUri+"&response_type=code&state=UNIQUE_STATE_STRING";
 
@@ -14,8 +14,12 @@ mainApp.service('LoginService', function (localStorageService, $window, $state) 
   return {
     login: function () {
 
-      window.open = cordova.InAppBrowser.open;
 
+      //$cordovaOauth.muatic(clientId, ['https://www.googleapis.com/auth/drive']);
+      $ngCordovaMuatic.signin();
+
+      /*
+      window.open = cordova.InAppBrowser.open;
       loginWindow = $window.open(url, '_blank', 'location=no,toolbar=no');
       loginWindow.addEventListener('loadstart', function (evt) {
 
@@ -32,10 +36,12 @@ mainApp.service('LoginService', function (localStorageService, $window, $state) 
               localStorageService.set('beats-token', token);
               $state.transitionTo('app.feed');
             } else {
+
             }
           }
         });
       });
+      */
 
     }
   }
