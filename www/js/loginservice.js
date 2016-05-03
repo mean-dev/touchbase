@@ -1,5 +1,5 @@
-mainApp.factory('LoginService', function (localStorageService, $window, Beats, $state) {
-  var url = Beats.authorize + '?response_type=token&amp;' + 'redirect_uri=' + Beats.callback + '&amp;client_id=' + Beats.key;
+mainApp.service('LoginService', function (localStorageService, $window, $state) {
+  //var url = Beats.authorize + '?response_type=token&amp;' + 'redirect_uri=' + Beats.callback + '&amp;client_id=' + Beats.key;
   var loginWindow;
   var parser;
   var params;
