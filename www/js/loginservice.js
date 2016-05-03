@@ -1,18 +1,12 @@
 mainApp.service('LoginService', function (localStorageService, $window, $state) {
 
-  var Beats = {
-    'authorize' : 'http://devops.touchbase.tools/oauth/v2/authorize',
-    'callback' : 'http://localhost:8100/#/tab/leads'
-  };
-  
-  /*/oauth/v2/authorize?
-    client_id=CLIENT_ID
-    &grant_type=authorization_code
-    &redirect_uri=https%3A%2F%2Fyour-redirect-uri.com%2Fcallback
-  &response_type=code
-  &state=UNIQUE_STATE_STRING*/
 
-  var url = Beats.authorize + '?response_type=code&amp;' + 'redirect_uri=' + Beats.callback + '&amp;client_id=' + Beats.key;
+  var redirectUri = 'http://localhost:8100/#/tab/leads';
+  var authUrl = 'http://devops.touchbase.tools/oauth/v2/authorize';
+  var clientId = 'CLIENT_ID';
+  
+  var url = authUrl+"?client_id="+clientId+"&grant_type=authorization_code&redirect_uri="+redirectUri+"&response_type=code&state=UNIQUE_STATE_STRING";
+
   var loginWindow;
   var parser;
   var params;

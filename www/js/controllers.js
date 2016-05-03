@@ -3,10 +3,9 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, $state,$http,LoginService) {
 	$scope.signIn = function() {
 
+    LoginService.login();
 
-    //LoginService.login();
-
-    $state.go('tab.leads');
+    //$state.go('tab.leads');
 
     /*$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
