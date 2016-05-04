@@ -93,7 +93,12 @@ mainApp.service('leads', [ function($rootScope, $filter) {
 
   };
 
+  this.lists = {
 
+    'list' : function(){
+        return mObj.leads.list()[0]['l'];
+    }
 
+  };
 
 }]);

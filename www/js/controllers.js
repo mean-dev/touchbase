@@ -46,7 +46,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('leadsListCtrl',function($scope, leads){
-
   $scope.items = leads.leads.list();
+})
 
+.controller('ListsCtrl',function($scope, leads){
+    $scope.items = leads.leads.list();
 });

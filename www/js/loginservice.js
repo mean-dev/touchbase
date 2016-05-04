@@ -14,7 +14,6 @@ mainApp.service('LoginService', function (localStorageService, $window, $state, 
   return {
     login: function () {
 
-
       //$cordovaOauth.muatic(clientId, ['https://www.googleapis.com/auth/drive']);
       $cordovaOauth.muatic('', []);
 

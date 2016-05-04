@@ -23,10 +23,8 @@
 		<div class="content">
 			<ion-list>
 
-				<div class="item item-divider">
-				    History
-				</div>
-				<a class="item item-avatar" ng-repeat="item in history">
+				<div class="item item-divider">History</div>
+				<a class="item " ng-repeat="item in history">
           <p>
             <span class="name">{{item.title}}</span>
             <small>{{item.description}}</small>
@@ -35,21 +33,14 @@
 				</a>
 
         <!-- item divider -->
-				<div class="item item-divider">
-				    Notes
-				</div>
-        <a class="item item-avatar" ng-repeat="item in notes">
-          <img src="img/82.jpg">
+				<div class="item item-divider">Notes</div>
+        <a class="item" ng-repeat="item in notes">
           <p>
-            <!-- *name -->
-            <span class="name">Carla Harrington</span>
-            <small>Followed by</small>
-            <span class="name">Ben Loson</span>
+            <span class="name">{{item.title}}</span>
+            <small>{{item.description}}</small>
           </p>
-          <!-- *activity-time -->
-          <div class="activity-time">2 days ago</div>
+          <div class="activity-time">{{item.date}}</div>
         </a>
-
 
 			</ion-list>
 		</div>
