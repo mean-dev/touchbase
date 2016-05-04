@@ -59,7 +59,7 @@ var mainApp = angular.module('starter', ['ionic', 'starter.controllers','LocalSt
       }
     })
     .state('lead-detail', {
-        url: '/account',
+        url: '/account/:id',
         templateUrl: 'templates/tab-account.html',
         controller: 'LeadCtrl'
     })
