@@ -34,10 +34,19 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('LeadCtrl', function($scope, $state, $ionicHistory) {
+.controller('LeadCtrl', function($scope, $state, $ionicHistory, leads) {
 
 	$scope.goBack = function() {
 		window.location = '/#/tab/leads';
 	};
+
+  $scope.history = leads.leads.history($state.params['id']);
+  $scope.notes = leads.leads.notes($state.params['id']);
+
+})
+
+.controller('leadsListCtrl',function($scope, leads){
+
+  $scope.items = leads.leads.list();
 
 });
