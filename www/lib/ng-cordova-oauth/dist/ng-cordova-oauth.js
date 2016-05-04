@@ -2767,7 +2767,7 @@
           //var redirectUri = encodeURIComponent('http://localhost:8000/index.html#/tab/leads');
 
           var browserRef = window.cordova.InAppBrowser.open('https://test123123.mautic.com/oauth/v2/authorize?client_id=' + clientId + '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&response_type=code', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
-          
+
           browserRef.addEventListener("loadstart", function(event) {
 
             if((event.url).startsWith("http://localhost/callback")) {
