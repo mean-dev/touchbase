@@ -9,7 +9,7 @@
 	}
 </style>
 
-<ion-view view-title="Account" ng-controller="LeadCtrl">
+<ion-view view-title="Account" >
 
 	<ion-nav-buttons side="right">
 		<a class="button button-icon icon ion-ios-gear-outline" href="#/tab/edprofile"></a>
@@ -18,9 +18,9 @@
 		<a class="button icon-left ion-chevron-left button-clear button-white" ng-click="goBack()">Back</a>
 	</ion-nav-buttons>
 
-	<ion-content>
+	<ion-content ng-controller="LeadCtrl">
 		<!-- *content / container profile -->
-		<div class="content" ng-controller="LeadCtrl">
+		<div class="content">
 			<ion-list>
 
         <!-- item divider -->
