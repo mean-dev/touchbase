@@ -19,24 +19,19 @@
 	</ion-nav-buttons>
 
 	<ion-content ng-controller="LeadCtrl">
-		<!-- *content / container profile -->
+
 		<div class="content">
 			<ion-list>
 
-        <!-- item divider -->
 				<div class="item item-divider">
 				    History
 				</div>
 				<a class="item item-avatar" ng-repeat="item in history">
-					<img src="img/82.jpg">
-      				<p>
-						<!-- *name -->
-      					<span class="name">Carla Harrington</span>
-      					<small>Followed by</small>
-      					<span class="name">Ben Loson</span>
-      				</p>
-					<!-- *activity-time -->
-					<div class="activity-time">2 days ago</div>
+          <p>
+            <span class="name">{{item.title}}</span>
+            <small>{{item.description}}</small>
+          </p>
+					<div class="activity-time">{{item.date}}</div>
 				</a>
 
         <!-- item divider -->

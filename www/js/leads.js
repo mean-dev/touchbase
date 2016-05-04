@@ -18,14 +18,14 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ],
             'notes':[
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ]
           },
           {
@@ -36,14 +36,14 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ],
             'notes':[
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ]
           },
           {
@@ -54,14 +54,14 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ],
             'notes':[
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ]
           },
           {
@@ -72,14 +72,14 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ],
             'notes':[
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'},
-              {'title':'history title 1','date':'April 12, 2016 11:43 am'}
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'},
+              {'title':'history title 1','date':'April 12, 2016 11:43 am', 'description':'descr small'}
             ]
           }
         ];
