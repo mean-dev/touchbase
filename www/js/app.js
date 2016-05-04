@@ -102,3 +102,4 @@ var mainApp = angular.module('starter', ['ionic', 'starter.controllers','LocalSt
   $urlRouterProvider.otherwise('/login');
 
 });
+

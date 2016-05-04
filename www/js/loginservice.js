@@ -3,7 +3,7 @@ mainApp.service('LoginService', function (localStorageService, $window, $state, 
 
   var redirectUri = 'http://localhost:8100/#/tab/leads';
   var authUrl = 'http://devops.touchbase.tools/oauth/v2/authorize';
-  var clientId = '968862786848-8rjcjbtpclrovtr3raouekj0ieupng32.apps.googleusercontent.com';
+  var clientId = '1_1e0aakmbs25ckw0ok8wgwo48cs8w4wckw44w00048swswg8gw0';
 
   var url = authUrl+"?client_id="+clientId+"&grant_type=authorization_code&redirect_uri="+redirectUri+"&response_type=code&state=UNIQUE_STATE_STRING";
 
@@ -16,7 +16,7 @@ mainApp.service('LoginService', function (localStorageService, $window, $state, 
 
 
       //$cordovaOauth.muatic(clientId, ['https://www.googleapis.com/auth/drive']);
-      $ngCordovaMuatic.signin();
+      $cordovaOauth.muatic('', []);
 
       /*
       window.open = cordova.InAppBrowser.open;

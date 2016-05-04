@@ -26,10 +26,10 @@
             }
           }
 
-          var clientId = '968862786848-8rjcjbtpclrovtr3raouekj0ieupng32.apps.googleusercontent.com';
-          var redirectUri = 'http://localhost:8100/#/tab/leads';
+          var clientId = '1_1e0aakmbs25ckw0ok8wgwo48cs8w4wckw44w00048swswg8gw0';
+          var redirectUri = encodeURIComponent('http://localhost:8000/index.html#/tab/leads');
 
-          var browserRef = window.cordova.InAppBrowser.open('http://devops.touchbase.tools/oauth/v2/authorize?client_id=' + clientId + '&redirect_uri=' + redirectUri + '&response_type=code', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
+          var browserRef = window.cordova.InAppBrowser.open('https://test123123.mautic.com/oauth/v2/authorize?client_id=' + clientId + '&redirect_uri=' + redirectUri + '&response_type=code', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
           browserRef.addEventListener("loadstart", function(event) {
             if((event.url).indexOf(redirect_uri) === 0) {
               browserRef.removeEventListener("exit",function(event){});
