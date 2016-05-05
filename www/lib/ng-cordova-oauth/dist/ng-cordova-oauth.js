@@ -2763,10 +2763,10 @@
             }
           }
 
-          var clientId = '1_u7lp3kb5lis8wgk8c88g08co800w4ww0c0sc0sskw8gwo80ks';
-          var redirectUri = encodeURIComponent('http://localhost:8000/index.html#/tab/leads');
+          var clientId = '1_1e0aakmbs25ckw0ok8wgwo48cs8w4wckw44w00048swswg8gw0';
+          var redirectUri = encodeURI('http://localhost:8000/index.html#/tab/leads');
 
-          var browserRef = window.cordova.InAppBrowser.open('https://devops.touchbase.tools/mautic/oauth/v2/authorize?client_id=' + clientId + '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&response_type=code', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
+          var browserRef = window.cordova.InAppBrowser.open('https://test123123.mautic.com/oauth/v2/authorize?client_id=' + clientId + '&redirect_uri=' + encodeURI(redirect_uri) + '&response_type=code', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
           
           browserRef.addEventListener("loadstart", function(event) {
 
