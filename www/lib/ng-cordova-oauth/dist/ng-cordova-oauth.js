@@ -2756,7 +2756,7 @@
       var deferred = $q.defer();
       if(window.cordova) {
         if($cordovaOauthUtility.isInAppBrowserInstalled()) {
-          var redirect_uri = "http://localhost/callback";
+          var redirect_uri = "http://10.0.2.2:8080/callback";
           if(options !== undefined) {
             if(options.hasOwnProperty("redirect_uri")) {
               redirect_uri = options.redirect_uri;
@@ -2770,7 +2770,7 @@
           
           browserRef.addEventListener("loadstart", function(event) {
 
-            if((event.url).startsWith("http://localhost/callback")) {
+            if((event.url).startsWith("http://10.0.2.2:8080/callback")) {
               var requestToken = (event.url).split("code=")[1];
               console.log(requestToken);
               //ref.close();
