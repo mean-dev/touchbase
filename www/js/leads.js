@@ -14,7 +14,7 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'id'        :1,
             'name'      :'alex',
             'lname'     :'krizh',
-            'email'     :'test@mail.ru',
+            'email'     :'Lead list ',
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
@@ -32,7 +32,7 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'id'        :2,
             'name'      :'alex',
             'lname'     :'krizh',
-            'email'     :'test@mail.ru',
+            'email'     :'Lead list',
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
@@ -50,7 +50,7 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'id'        :3,
             'name'      :'alex',
             'lname'     :'krizh',
-            'email'     :'test@mail.ru',
+            'email'     :'Lead list',
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
@@ -68,7 +68,7 @@ mainApp.service('leads', [ function($rootScope, $filter) {
             'id'        :4,
             'name'      :'alex',
             'lname'     :'krizh',
-            'email'     :'test@mail.ru',
+            'email'     :'Lead list',
             'activity'  :'2h',
             'image'     :'img/27.jpg',
             'history'   : [
