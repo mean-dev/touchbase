@@ -14,35 +14,11 @@ mainApp.service('LoginService', function (localStorageService, $window, $state, 
   return {
     login: function () {
 
-
-      //$cordovaOauth.muatic(clientId, ['https://www.googleapis.com/auth/drive']);
       $cordovaOauth.muatic('', []);
-
-      /*
-      window.open = cordova.InAppBrowser.open;
-      loginWindow = $window.open(url, '_blank', 'location=no,toolbar=no');
-      loginWindow.addEventListener('loadstart', function (evt) {
-
-        parser = $window.document.createElement('a');
-        parser.href = evt.url;
-        params = parser.search.split('&amp;');
-
-        angular.forEach(params, function (param) {
-          if (param.indexOf('access_token') > -1) {
-            token = param.substring(13);
-            if (token) {
-              $window.alert(token);
-              loginWindow.close();
-              localStorageService.set('beats-token', token);
-              $state.transitionTo('app.feed');
-            } else {
-
-            }
-          }
-        });
-      });
-      */
 
     }
   }
+
+  this.token = false;
+
 });

@@ -2736,12 +2736,14 @@
 })();
 
 (function() {
+
   'use strict';
 
   angular.module('oauth.muatic', ['oauth.utils'])
     .factory('$ngCordovaMuatic', muatic);
 
-  function muatic($q, $http, $cordovaOauthUtility) {
+  function muatic($q, $http, $cordovaOauthUtility, $rootScope) {
+
     return { signin: oauthMuatic };
 
     /*
@@ -2764,23 +2766,25 @@
           }
 
           var clientId = '1_1e0aakmbs25ckw0ok8wgwo48cs8w4wckw44w00048swswg8gw0';
-          var redirectUri = encodeURI('http://localhost:8000/index.html#/tab/leads');
+          var redirectUri = encodeURI('http://10.0.2.2:8080/index.html#/tab/leads');
 
           var browserRef = window.cordova.InAppBrowser.open('https://test123123.mautic.com/oauth/v2/authorize?client_id=' + clientId + '&redirect_uri=' + encodeURI(redirect_uri) + '&response_type=code', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
-          
+
           browserRef.addEventListener("loadstart", function(event) {
 
-            if((event.url).startsWith("http://10.0.2.2:8080/callback")) {
+            if(event.url.substr(0,29) == "http://10.0.2.2:8080/callback" ) {
               var requestToken = (event.url).split("code=")[1];
-              console.log(requestToken);
-              //ref.close();
+              if(requestToken){
+                $rootScope.$broadcast('authorized', requestToken);
+                browserRef.close();
+              }
             }
 
-            if (typeof String.prototype.startsWith != 'function') {
+            /*if (typeof String.prototype.startsWith != 'function') {
               String.prototype.startsWith = function (str){
                 return this.indexOf(str) == 0;
               };
-            }
+            }*/
 
             /*if((event.url).indexOf(redirect_uri) === 0) {
               browserRef.removeEventListener("exit",function(event){});
@@ -2813,7 +2817,7 @@
     }
   }
 
-  muatic.$inject = ['$q', '$http', '$cordovaOauthUtility'];
+  muatic.$inject = ['$q', '$http', '$cordovaOauthUtility','$rootScope'];
 })();
 
 /*
