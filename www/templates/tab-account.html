@@ -23,32 +23,36 @@
 		<div class="content">
 			<ion-list>
 
-				<div class="item item-divider">
-				    History
-				</div>
-				<a class="item item-avatar" ng-repeat="item in history">
-          <p>
-            <span class="name">{{item.title}}</span>
-            <small>{{item.description}}</small>
-          </p>
-					<div class="activity-time">{{item.date}}</div>
-				</a>
-
-        <!-- item divider -->
-				<div class="item item-divider">
-				    Notes
-				</div>
-        <a class="item item-avatar" ng-repeat="item in notes">
-          <img src="img/82.jpg">
-          <p>
-            <!-- *name -->
-            <span class="name">Carla Harrington</span>
-            <small>Followed by</small>
-            <span class="name">Ben Loson</span>
-          </p>
-          <!-- *activity-time -->
-          <div class="activity-time">2 days ago</div>
+        <div class="item item-divider">
+          Date added
+        </div>
+        <a class="item item-avatar">
+          <p><span class="name">{{lead.dateAdded}}</span></p>
         </a>
+
+        <div class="item item-divider">
+          Last active
+        </div>
+        <a class="item item-avatar">
+          <p><span class="name">{{lead.lastActive}}</span></p>
+        </a>
+
+        <div class="item item-divider">
+          Last active
+        </div>
+        <a class="item item-avatar">
+          <p><span class="name">{{lead.lastActive}}</span></p>
+        </a>
+
+				<div class="item item-divider">
+				    Fields
+				</div>
+				<a class="item item-avatar" ng-repeat="(field,value) in lead.fields.all">
+          <p>
+            <span class="name">{{field}}</span> -
+            <small>{{value}}</small>
+          </p>
+				</a>
 
 
 			</ion-list>

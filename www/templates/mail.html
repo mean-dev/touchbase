@@ -1,0 +1,49 @@
+<!-- (*) assigned classes -->
+
+<style>
+  .content {
+    background-color: white;
+    margin-top: 0px;
+    padding-top: 0px;
+    position: relative;
+  }
+</style>
+
+<ion-view view-title="Account" >
+
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-ios-gear-outline" href="#/tab/edprofile"></a>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="left">
+    <a class="button icon-left ion-chevron-left button-clear button-white" ng-click="goBack()">Back</a>
+  </ion-nav-buttons>
+
+  <ion-content ng-controller="MailCtrl">
+
+    <div class="content">
+
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">From</span>
+          <input type="text" placeholder="from mail" ng-model="mailfrom">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Subject</span>
+          <input type="text" placeholder="subject" ng-model="mailsubject">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Body</span>
+          <textarea placeholder="Comments" ng-model="mailbody"></textarea>
+        </label>
+
+        <br/> <br/>
+        <button class="button button-light">Cancel</button>
+        <button class="button button-positive">Send</button>
+
+      </div>
+
+    </div>
+
+  </ion-content>
+
+</ion-view>

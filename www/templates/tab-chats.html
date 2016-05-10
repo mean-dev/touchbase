@@ -1,65 +1,22 @@
 <!-- (*) assigned classes -->
 
-<ion-view view-title="Leads">
+<ion-view view-title="Leads" ng-controller="listCtrl">
+
     <ion-content>
 
         <!-- *input-search -->
         <div class="list list-inset input-search">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="Search" ng-model="listSearch">
             </label>
         </div>
 
-        <!-- *item-border-off / quit first border of the list item -->
         <ion-list class="item-border-off">
-            <ion-item class="item-icon-right" type="item-text-wrap" href="#">
-                <h2>Ben Loson</h2>
-                <p>You on your way?</p>
-                <!-- *time-list / time of activity -->
-                <i class="icon ion-chevron-right icon-accessory"></i>
-                <!-- button options -->
-                <ion-option-button>
-                    <i class="icon ion-ios-close-outline"></i>
-                </ion-option-button>
-            </ion-item>
-            <ion-item class="item-icon-right" type="item-text-wrap" href="#">
-                <h2>Brad Wix</h2>
-                <p>Hey, it\'s me</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-                <ion-option-button>
-                    <i class="icon ion-ios-close-outline"></i>
-                </ion-option-button>
-            </ion-item>
-            <ion-item class="item-icon-right" type="item-text-wrap" href="#">
-                <h2>Amy Bradleyson</h2>
-                <p>I should buy a boat</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-                <ion-option-button>
-                    <i class="icon ion-ios-close-outline"></i>
-                </ion-option-button>
-            </ion-item>
-            <ion-item class="item-icon-right" type="item-text-wrap" href="#">
-                <h2>
-                    Perry Don
-                </h2>
-                <p>Look at my mukluks!</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-                <ion-option-button>
-                    <i class="icon ion-ios-close-outline"></i>
-                </ion-option-button>
-            </ion-item>
-            <ion-item class="item-icon-right" type="item-text-wrap" href="#">
-                <h2>Carla Harrington</h2>
-                <p>This is wicked good ice cream</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-                <ion-option-button>
-                    <i class="icon ion-ios-close-outline"></i>
-                </ion-option-button>
-            </ion-item>
-            <ion-item class="item-icon-right" type="item-text-wrap" href="#">
-                <h2>Amy Bradleyson</h2>
-                <p>I should buy a boat</p>
+            <ion-item ng-repeat="item in items | filter : listSearch" class="item-icon-right" type="item-text-wrap" href="#/mail/{{item.id}}">
+              <small>id:{{item.id}}</small>
+              <h2>{{item.name}}</h2>
+                <p>{{item.alias}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
                 <ion-option-button>
                     <i class="icon ion-ios-close-outline"></i>

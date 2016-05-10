@@ -17,7 +17,7 @@ mainApp.service('LoginService', function (localStorageService, $window, $state, 
       $cordovaOauth.muatic('', []);
 
     }
-  }
+  };
 
   this.token = false;
 

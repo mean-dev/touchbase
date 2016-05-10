@@ -7,70 +7,142 @@ angular.module('starter.controllers', [])
 
     $rootScope.$on('authorized', function(event, data){
       $state.go("tab.leads");
-      LoginService.token = data;
+      LoginService.authdata = data.data;
     });
 
-
-    //$state.go('tab.leads');
-    /*$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    $http.post('http://devops.touchbase.tools/oauth/v2/', {
-          'client_id': 123123,
-          'client_secret': 123123123123,
-          'grant_type': 'password',
-          'username': 'user',
-          'password': 'password',
-
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-          }
-    })
-      .success(function(data) {
-          accessToken = data.access_token;
-          $location.path("/secure");
-      })
-      .error(function(data, status) {
-          alert("ERROR: " + data);
-      });
-      */
-    ///
-
 	};
+
 })
 
-.controller('LeadCtrl', function($scope, $state, $ionicHistory, leads, $http) {
+.controller('LeadCtrl', function($scope, $state, $ionicHistory, leads, $http, $rootScope, $filter) {
 
 	$scope.goBack = function() {
-		window.location = '/#/tab/leads';
+    $state.go("tab.leads");
 	};
+  var lead = $filter('filter')($rootScope.leads, {'id':$state.params['id']})[0];
 
-  $scope.history = leads.leads.history($state.params['id']);
-  $scope.notes = leads.leads.notes($state.params['id']);
+  $scope.lead = lead;
+  console.log(lead);
 
 })
 
-.controller('leadsListCtrl',function($scope, leads, LoginService, $http){
+.controller('leadsListCtrl',function($scope, leads, LoginService, $http, $rootScope, $state){
 
-  if(LoginService.token){
+  $scope.items = new Array();
 
-    var req = {
-      method: 'POST',
-      url: 'http://example.com',
-      headers: {
-        'Content-Type': undefined
-      },
-      data: { test: 'test' }
-    };
-    $http(req).then(function(){
-      /*...*/
-    }, function(){
-      /*...*/
+  $scope.curPage = 1;
+  $scope.OnPage = 50;
+  $scope.totalCount = 0;
+
+  if(LoginService.authdata){
+
+    $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
+
+    var url = 'https://devops.touchbase.tools/mautic/api/leads?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
+
+    $http.get(url).then(function(e){
+
+        $scope.totalCount = e.data.total;
+        $scope.curPage++;
+
+        e.data.leads.forEach(function(value, index){
+          $scope.items.push(value);
+        });
+
+        $rootScope.leads = $scope.items;
+
+      }, function(e){
+        console.log('fail',e);
+    });
+
+  };
+
+  $scope.loadMore = function(){
+
+    $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
+
+    var url = 'https://devops.touchbase.tools/mautic/api/leads?start='+(($scope.curPage)*$scope.OnPage)+'&limit='+$scope.OnPage;
+
+    if($scope.curPage*$scope.OnPage < $scope.totalCount){
+      $http.get(url).then(function(e){
+
+        $scope.total = e.data.total;
+
+        e.data.leads.forEach(function(value, index){
+          $scope.items.push(value);
+        });
+
+        $scope.curPage++;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      }, function(e){
+        console.log('fail',e);
+      });
+    }
+
+  };
+
+  $scope.mailLead = function(){
+    console.log('qwe');
+    $state.go("mail");
+  };
+
+})
+
+.controller('listCtrl',function($scope, leads, LoginService, $http, $rootScope){
+
+  $scope.items = new Array();
+
+  if(LoginService.authdata){
+
+    $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
+
+    var url = 'https://devops.touchbase.tools/mautic/api/lists?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
+
+    $http.get(url).then(function(e){
+
+      $scope.items = new Array();
+      $rootScope.lists = $scope.items;
+
+      angular.forEach(e.data, function(value, key) {
+        $scope.items.push(value);
+      });
+
+      console.log($scope.items);
+
+    }, function(e){
+      console.log('fail',e);
     });
 
   }
 
-  //console.log("Token", LoginService.token);
+  $scope.loadMore = function(){
 
-  $scope.items = leads.leads.list();
+    $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
 
+    var url = 'https://devops.touchbase.tools/mautic/api/leads?start='+(($scope.curPage)*$scope.OnPage)+'&limit='+$scope.OnPage;
+
+    if($scope.curPage*$scope.OnPage < $scope.totalCount){
+      $http.get(url).then(function(e){
+
+        $scope.total = e.data.total;
+
+        e.data.leads.forEach(function(value, index){
+          $scope.items.push(value);
+        });
+
+        $scope.curPage++;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      }, function(e){
+        console.log('fail',e);
+      });
+    }
+
+  }
+
+})
+
+.controller('MailCtrl',function($scope, leads, LoginService, $http, $rootScope){
+  // ...
 });

@@ -15,23 +15,27 @@
         <!-- *item-border-off / quit first border of the list item -->
         <ion-list class="item-border-off">
 
-            <ion-item ng-repeat="item in items | filter : leadsSearch" class="item-avatar item-icon-right" type="item-text-wrap" href="#/account/{{item.id}}">
-                <img ng-src="{{item.image}}">
+            <ion-item ng-repeat="item in items | filter : leadsSearch" class="item-icon-right" type="item-text-wrap" href="#/account/{{item.id}}">
                 <h2>
-                    {{item.name}}
-                    <div class="online-off"></div>
+                    {{item.createdByUser?item.createdByUser:"anonim"}}
                 </h2>
-                <p>{{item.email}}</p>
+                <p>points - {{item.points}}</p>
                 <p class="time-list">
                     <i class="icon ion-ios-clock-outline"></i>
-                    {{item.activity}}
+                    {{item.lastActive}}
                 </p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
-                <ion-option-button>
+                <ion-option-button href="#/mail/{{item.id}}" ng-click="mailLead()" >
                     <i class="icon ion-ios-email-outline"></i>
                 </ion-option-button>
             </ion-item>
 
         </ion-list>
+
+      <ion-infinite-scroll
+        on-infinite="loadMore()"
+        distance="1%">
+      </ion-infinite-scroll>
+
     </ion-content>
 </ion-view>

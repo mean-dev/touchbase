@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var mainApp = angular.module('starter', ['ionic', 'starter.controllers','LocalStorageModule', 'ngCordovaOauth'])
+var mainApp = angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers','LocalStorageModule', 'ngCordovaOauth'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,6 +20,15 @@ var mainApp = angular.module('starter', ['ionic', 'starter.controllers','LocalSt
       StatusBar.styleLightContent();
     }
   });
+
+  var push = new Ionic.Push({});
+
+  push.register(function(token) {
+    // Log out your device token (Save this!)
+    console.log("Got Token:",token.token);
+  });
+
+
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -63,7 +72,11 @@ var mainApp = angular.module('starter', ['ionic', 'starter.controllers','LocalSt
         templateUrl: 'templates/tab-account.html',
         controller: 'LeadCtrl'
     })
-
+    .state('mail', {
+      url: '/mail/:id',
+      templateUrl: 'templates/mail.html',
+      controller: 'MailCtrl'
+    })
     .state('tab.lists', {
       url: '/lists',
       views: {

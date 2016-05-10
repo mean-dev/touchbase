@@ -2765,17 +2765,40 @@
             }
           }
 
-          var clientId = '1_1e0aakmbs25ckw0ok8wgwo48cs8w4wckw44w00048swswg8gw0';
-          var redirectUri = encodeURI('http://10.0.2.2:8080/index.html#/tab/leads');
+          var baseApiUrl = 'https://devops.touchbase.tools/';  // devops.touchbase.tools
 
-          var browserRef = window.cordova.InAppBrowser.open('https://test123123.mautic.com/oauth/v2/authorize?client_id=' + clientId + '&redirect_uri=' + encodeURI(redirect_uri) + '&response_type=code', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
+          var clientId = '3_4t749eqnxuskk0ggso404okc08kcoso0osg0wwk8cw08ogs0so'; // 1_u7lp3kb5lis8wgk8c88g08co800w4ww0c0sc0sskw8gwo80ks
+          var clientSecret = '3wf2f6sadow0cw0gckcwg0sg4g4swsk8ssk8gww0wgkcw00kcg';
+          var authCallback = 'http://10.0.2.2:8080/callback';
+
+          var redirectUri = encodeURI('http://10.0.2.2:8080/index.html#/tab/leads');
+          var authUrl = baseApiUrl+'mautic/oauth/v2/authorize?client_id='+clientId+'&redirect_uri='+encodeURI(authCallback)+'&response_type=code';
+
+          var browserRef = window.cordova.InAppBrowser.open(authUrl, '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
+         //https://devops.touchbase.tools/mautic/oauth/v2/authorize?client_id=2_46a51jf76ckk08sgskok00cg0gckk48kgcc44goscggwg40k0w&redirect_uri=https://devops.touchbase.tools/&response_type=code
+          console.log(authUrl);
 
           browserRef.addEventListener("loadstart", function(event) {
 
             if(event.url.substr(0,29) == "http://10.0.2.2:8080/callback" ) {
               var requestToken = (event.url).split("code=")[1];
               if(requestToken){
-                $rootScope.$broadcast('authorized', requestToken);
+
+                var data = {
+                  'client_id' : clientId,
+                  'client_secret' : clientSecret,
+                  'grant_type' : 'authorization_code',
+                  'redirect_uri' : authCallback,
+                  'code' : requestToken
+                };
+
+                $http.post(baseApiUrl+'mautic/oauth/v2/token', data).then(function(e){
+                  $rootScope.$broadcast('authorized', e);
+                  console.log('success',e);
+                }, function(e){
+                  console.log('fail',e);
+                });
+
                 browserRef.close();
               }
             }
