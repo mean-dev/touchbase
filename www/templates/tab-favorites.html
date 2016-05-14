@@ -17,15 +17,15 @@
 
             <ion-item ng-repeat="item in items | filter : leadsSearch" class="item-icon-right" type="item-text-wrap" href="#/account/{{item.id}}">
                 <h2>
-                    {{item.createdByUser?item.createdByUser:"anonim"}}
+                    {{item.createdByUser?item.createdByUser:"Anonymous"}}
                 </h2>
-                <p>points - {{item.points}}</p>
+                <p>Leds lists</p>
                 <p class="time-list">
                     <i class="icon ion-ios-clock-outline"></i>
                     {{item.lastActive}}
                 </p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
-                <ion-option-button href="#/mail/{{item.id}}" ng-click="mailLead()" >
+                <ion-option-button href="#/mail/{{item.id}}" ng-click="mailLead(item)" >
                     <i class="icon ion-ios-email-outline"></i>
                 </ion-option-button>
             </ion-item>
@@ -38,4 +38,5 @@
       </ion-infinite-scroll>
 
     </ion-content>
+
 </ion-view>

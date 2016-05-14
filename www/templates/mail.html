@@ -11,9 +11,6 @@
 
 <ion-view view-title="Account" >
 
-  <ion-nav-buttons side="right">
-    <a class="button button-icon icon ion-ios-gear-outline" href="#/tab/edprofile"></a>
-  </ion-nav-buttons>
   <ion-nav-buttons side="left">
     <a class="button icon-left ion-chevron-left button-clear button-white" ng-click="goBack()">Back</a>
   </ion-nav-buttons>
@@ -38,7 +35,7 @@
 
         <br/> <br/>
         <button class="button button-light">Cancel</button>
-        <button class="button button-positive">Send</button>
+        <button class="button button-positive" ng-click="sendMail()">Send</button>
 
       </div>
 

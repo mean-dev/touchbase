@@ -3,12 +3,12 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, $state,$http,LoginService,$rootScope, $state) {
 	$scope.signIn = function() {
 
-    LoginService.login();
+      LoginService.login();
 
-    $rootScope.$on('authorized', function(event, data){
-      $state.go("tab.leads");
-      LoginService.authdata = data.data;
-    });
+      $rootScope.$on('authorized', function(event, data){
+        $state.go("tab.leads");
+        LoginService.authdata = data.data;
+      });
 
 	};
 
@@ -21,8 +21,18 @@ angular.module('starter.controllers', [])
 	};
   var lead = $filter('filter')($rootScope.leads, {'id':$state.params['id']})[0];
 
+  $scope.fieldsVisible = false;
   $scope.lead = lead;
-  console.log(lead);
+  $rootScope.leadname = lead.createdByUser ? lead.createdByUser : "Anonymous";
+  $rootScope.leadid = lead.id;
+
+  console.log($scope.fieldsVisible);
+
+  $scope.toogle = function(){
+    console.log($scope.fieldsVisible);
+    if($scope.fieldsVisible) $scope.fieldsVisible = false;
+    else $scope.fieldsVisible = true;
+  }
 
 })
 
@@ -46,7 +56,11 @@ angular.module('starter.controllers', [])
         $scope.curPage++;
 
         e.data.leads.forEach(function(value, index){
+
+          value['lastActive'] = moment(value['lastActive'], "YYYYMMDD").fromNow();
+
           $scope.items.push(value);
+          console.log(value['lastActive']);
         });
 
         $rootScope.leads = $scope.items;
@@ -83,7 +97,6 @@ angular.module('starter.controllers', [])
   };
 
   $scope.mailLead = function(){
-    console.log('qwe');
     $state.go("mail");
   };
 
@@ -143,6 +156,22 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('MailCtrl',function($scope, leads, LoginService, $http, $rootScope){
-  // ...
+.controller('MailCtrl',function($scope, $state, leads, LoginService, $http, $rootScope){
+
+  $scope.goBack = function(){
+    $state.go("tab.leads");
+  };
+
+  $scope.sendMail = function(lead){
+
+    var mail = {
+      'id' : '', // lead id
+      'from' : '', // from
+      'subject' : '', // mail subject
+      'body' : '' // mail body
+    };
+
+    console.log($scope.mailfrom, $scope.mailsubject, $scope.mailbody);
+  };
+
 });

@@ -13,10 +13,8 @@
         </div>
 
         <ion-list class="item-border-off">
-            <ion-item ng-repeat="item in items | filter : listSearch" class="item-icon-right" type="item-text-wrap" href="#/mail/{{item.id}}">
-              <small>id:{{item.id}}</small>
+            <ion-item ng-repeat="item in items | filter : listSearch" class="item-icon-right" type="item-text-wrap" href="#/tab/leads">
               <h2>{{item.name}}</h2>
-                <p>{{item.alias}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
                 <ion-option-button>
                     <i class="icon ion-ios-close-outline"></i>

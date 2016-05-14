@@ -9,10 +9,10 @@
 	}
 </style>
 
-<ion-view view-title="Account" >
+<ion-view view-title="{{$root.leadname}}" >
 
 	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-ios-gear-outline" href="#/tab/edprofile"></a>
+		<a class="button button-icon icon ion-ios-email-outline" href="#/mail/{{$root.leadid}}"></a>
   </ion-nav-buttons>
 	<ion-nav-buttons side="left">
 		<a class="button icon-left ion-chevron-left button-clear button-white" ng-click="goBack()">Back</a>
@@ -21,7 +21,21 @@
 	<ion-content ng-controller="LeadCtrl">
 
 		<div class="content">
+
+      <div class="card">
+        <div class="item item-text-wrap">
+          <img src="img/4.jpg" align="center"/>
+        </div>
+      </div>
+
 			<ion-list>
+
+        <div class="item item-divider">
+          Lists
+        </div>
+        <a class="item item-avatar">
+          <p><span class="name">Lead lists</span></p>
+        </a>
 
         <div class="item item-divider">
           Date added
@@ -46,8 +60,10 @@
 
 				<div class="item item-divider">
 				    Fields
+            <a ng-if="!fieldsVisible" style="color: white;" class="icon-right ion-ios-arrow-down button-clear button-white" ng-click="toogle();">&nbsp;</a>
+            <a ng-if="fieldsVisible" style="color: white;" class="icon-right ion-ios-arrow-up button-clear button-white" ng-click="toogle();">&nbsp;</a>
 				</div>
-				<a class="item item-avatar" ng-repeat="(field,value) in lead.fields.all">
+				<a ng-if="fieldsVisible" class="item item-avatar" ng-repeat="(field,value) in lead.fields.all">
           <p>
             <span class="name">{{field}}</span> -
             <small>{{value}}</small>

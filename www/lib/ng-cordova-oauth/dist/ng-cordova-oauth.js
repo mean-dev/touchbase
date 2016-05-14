@@ -2756,8 +2756,10 @@
      */
     function oauthMuatic(clientId, appScope, options) {
       var deferred = $q.defer();
+
       if(window.cordova) {
         if($cordovaOauthUtility.isInAppBrowserInstalled()) {
+
           var redirect_uri = "http://10.0.2.2:8080/callback";
           if(options !== undefined) {
             if(options.hasOwnProperty("redirect_uri")) {
@@ -2765,18 +2767,15 @@
             }
           }
 
-          var baseApiUrl = 'https://devops.touchbase.tools/';  // devops.touchbase.tools
-
-          var clientId = '3_4t749eqnxuskk0ggso404okc08kcoso0osg0wwk8cw08ogs0so'; // 1_u7lp3kb5lis8wgk8c88g08co800w4ww0c0sc0sskw8gwo80ks
-          var clientSecret = '3wf2f6sadow0cw0gckcwg0sg4g4swsk8ssk8gww0wgkcw00kcg';
+          var baseApiUrl = 'https://devops.touchbase.tools/';
+          var clientId = '2_30eehvm6g06co8c8cwg08ocsgg88wckco4kskk0wowc0cco44c';
+          var clientSecret = '2elkatn00kboo8cs0sg08sw8s8048g0scc8wcsgksgc0g444s0';
           var authCallback = 'http://10.0.2.2:8080/callback';
 
           var redirectUri = encodeURI('http://10.0.2.2:8080/index.html#/tab/leads');
           var authUrl = baseApiUrl+'mautic/oauth/v2/authorize?client_id='+clientId+'&redirect_uri='+encodeURI(authCallback)+'&response_type=code';
 
           var browserRef = window.cordova.InAppBrowser.open(authUrl, '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
-         //https://devops.touchbase.tools/mautic/oauth/v2/authorize?client_id=2_46a51jf76ckk08sgskok00cg0gckk48kgcc44goscggwg40k0w&redirect_uri=https://devops.touchbase.tools/&response_type=code
-          console.log(authUrl);
 
           browserRef.addEventListener("loadstart", function(event) {
 
@@ -2803,34 +2802,12 @@
               }
             }
 
-            /*if (typeof String.prototype.startsWith != 'function') {
-              String.prototype.startsWith = function (str){
-                return this.indexOf(str) == 0;
-              };
-            }*/
-
-            /*if((event.url).indexOf(redirect_uri) === 0) {
-              browserRef.removeEventListener("exit",function(event){});
-              browserRef.close();
-              var callbackResponse = (event.url).split("#")[1];
-              var responseParameters = (callbackResponse).split("&");
-              var parameterMap = [];
-              for(var i = 0; i < responseParameters.length; i++) {
-                parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
-              }
-              if(parameterMap.access_token !== undefined && parameterMap.access_token !== null) {
-                deferred.resolve({ access_token: parameterMap.access_token, token_type: parameterMap.token_type, expires_in: parameterMap.expires_in, id_token: parameterMap.id_token });
-              } else {
-                deferred.reject("Problem authenticating");
-              }
-            }*/
-
-
           });
           browserRef.addEventListener('exit', function(event) {
             deferred.reject("The sign in flow was canceled");
           });
-        } else {
+        }
+        else {
           deferred.reject("Could not find InAppBrowser plugin");
         }
       } else {
