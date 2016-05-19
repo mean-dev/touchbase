@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var mainApp = angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers','LocalStorageModule', 'ngCordovaOauth'])
+var mainApp = angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers','LocalStorageModule', 'ngCordovaOauth', 'ngStorage'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -47,7 +47,7 @@ var mainApp = angular.module('starter', ['ionic','ionic.service.core', 'starter.
 
     .state('login', {
     url: "/login",
-    templateUrl: "templates/login.html",
+    //templateUrl: "templates/login.html",
     controller: 'LoginCtrl'
   })
 
@@ -84,31 +84,7 @@ var mainApp = angular.module('starter', ['ionic','ionic.service.core', 'starter.
           templateUrl: 'templates/tab-chats.html'
         }
       }
-    })
-    /*.state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html'
-        }
-      }
-    })
-    .state('tab.account', {
-      url: '/account',
-      views: {
-        'tab-account': {
-          templateUrl: 'templates/tab-account.html'
-        }
-      }
-    })
-    .state('tab.edprofile', {
-      url: '/edprofile',
-      views: {
-        'tab-account': {
-          templateUrl: 'templates/edit-profile.html'
-        }
-      }
-    })*/;
+    });
 
   // if none of the above states are matched, use this as the fallback
   //$urlRouterProvider.otherwise('/tab/dash');

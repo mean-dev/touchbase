@@ -1,16 +1,25 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $state,$http,LoginService,$rootScope, $state) {
-	$scope.signIn = function() {
+.controller('LoginCtrl', function($scope, $state,$http,LoginService,$rootScope, $state, $ionicPlatform, $localStorage, $sessionStorage) {
+	//$scope.signIn = function() {
+
+    $ionicPlatform.ready(function() {
+
+      $scope.$storage = $localStorage;
 
       LoginService.login();
 
       $rootScope.$on('authorized', function(event, data){
         $state.go("tab.leads");
         LoginService.authdata = data.data;
-      });
 
-	};
+        //window.localStorage.set({'authdata': JSON.stringify(data.data)});
+        //console.log(window.localStorage.get('authdata'));
+
+      });
+    });
+
+	//};
 
 })
 
@@ -26,10 +35,7 @@ angular.module('starter.controllers', [])
   $rootScope.leadname = lead.createdByUser ? lead.createdByUser : "Anonymous";
   $rootScope.leadid = lead.id;
 
-  console.log($scope.fieldsVisible);
-
   $scope.toogle = function(){
-    console.log($scope.fieldsVisible);
     if($scope.fieldsVisible) $scope.fieldsVisible = false;
     else $scope.fieldsVisible = true;
   }
@@ -48,7 +54,7 @@ angular.module('starter.controllers', [])
 
     $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
 
-    var url = 'https://devops.touchbase.tools/mautic/api/leads?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
+    var url = 'https://devops.touchbase.tools/api/leads?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
 
     $http.get(url).then(function(e){
 
@@ -75,7 +81,7 @@ angular.module('starter.controllers', [])
 
     $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
 
-    var url = 'https://devops.touchbase.tools/mautic/api/leads?start='+(($scope.curPage)*$scope.OnPage)+'&limit='+$scope.OnPage;
+    var url = 'https://devops.touchbase.tools/api/leads?start='+(($scope.curPage)*$scope.OnPage)+'&limit='+$scope.OnPage;
 
     if($scope.curPage*$scope.OnPage < $scope.totalCount){
       $http.get(url).then(function(e){
@@ -110,7 +116,7 @@ angular.module('starter.controllers', [])
 
     $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
 
-    var url = 'https://devops.touchbase.tools/mautic/api/lists?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
+    var url = 'https://devops.touchbase.tools/api/lists?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
 
     $http.get(url).then(function(e){
 
@@ -161,6 +167,17 @@ angular.module('starter.controllers', [])
   $scope.goBack = function(){
     $state.go("tab.leads");
   };
+
+  var url = 'https://devops.touchbase.tools/api/leads/getusertemplates';
+
+  $http.get(url).then(function(e){
+
+    console.log(e.data);
+
+  }, function(e){
+    console.log('fail',e);
+  });
+
 
   $scope.sendMail = function(lead){
 

@@ -22,7 +22,9 @@
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">From</span>
-          <input type="text" placeholder="from mail" ng-model="mailfrom">
+          <select ng-model="from">
+            <option value="0">--Choose option--</option>
+          </select>
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Subject</span>
@@ -31,6 +33,13 @@
         <label class="item item-input item-stacked-label">
           <span class="input-label">Body</span>
           <textarea placeholder="Comments" ng-model="mailbody"></textarea>
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Template</span>
+          <select>
+            <option value="0">--Choose template--</option>
+          </select>
         </label>
 
         <br/> <br/>

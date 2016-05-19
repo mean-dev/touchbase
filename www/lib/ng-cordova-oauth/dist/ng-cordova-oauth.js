@@ -2768,12 +2768,12 @@
           }
 
           var baseApiUrl = 'https://devops.touchbase.tools/';
-          var clientId = '2_30eehvm6g06co8c8cwg08ocsgg88wckco4kskk0wowc0cco44c';
-          var clientSecret = '2elkatn00kboo8cs0sg08sw8s8048g0scc8wcsgksgc0g444s0';
+          var clientId = '1_4jhmh8ydzwqockkggoswgcgc0ok04ko808cg0s480wkog8oocs';
+          var clientSecret = '25cbao880h1cw0s44w44ckk0oksgkkksw0o4gocs80kw0wkw8s';
           var authCallback = 'http://10.0.2.2:8080/callback';
 
           var redirectUri = encodeURI('http://10.0.2.2:8080/index.html#/tab/leads');
-          var authUrl = baseApiUrl+'mautic/oauth/v2/authorize?client_id='+clientId+'&redirect_uri='+encodeURI(authCallback)+'&response_type=code';
+          var authUrl = baseApiUrl+'oauth/v2/authorize?client_id='+clientId+'&redirect_uri='+encodeURI(authCallback)+'&response_type=code';
 
           var browserRef = window.cordova.InAppBrowser.open(authUrl, '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
 
@@ -2791,7 +2791,7 @@
                   'code' : requestToken
                 };
 
-                $http.post(baseApiUrl+'mautic/oauth/v2/token', data).then(function(e){
+                $http.post(baseApiUrl+'oauth/v2/token', data).then(function(e){
                   $rootScope.$broadcast('authorized', e);
                   console.log('success',e);
                 }, function(e){

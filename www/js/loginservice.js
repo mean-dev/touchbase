@@ -14,8 +14,6 @@ mainApp.service('LoginService', function (localStorageService, $window, $state, 
   return {
     login: function () {
 
-      //alert('try to ligin');
-
       $cordovaOauth.muatic('', []);
 
     }
