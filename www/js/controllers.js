@@ -168,27 +168,34 @@ angular.module('starter.controllers', [])
     $state.go("tab.leads");
   };
 
+  $scope.templates = [];
+
+  /**
+   * Get templates list
+   * @type {string}
+     */
   var url = 'https://devops.touchbase.tools/api/leads/getusertemplates';
-
   $http.get(url).then(function(e){
-
-    console.log(e.data);
-
+    $scope.templates = e.data.templates.en;
   }, function(e){
     console.log('fail',e);
   });
 
-
   $scope.sendMail = function(lead){
 
     var mail = {
-      'id' : '', // lead id
-      'from' : '', // from
-      'subject' : '', // mail subject
-      'body' : '' // mail body
+      'id' : lead, // lead id
+      'from' : $scope.from, // from
+      'subject' : $scope.subject, // mail subject
+      'body' : $scope.body // mail body
     };
 
-    console.log($scope.mailfrom, $scope.mailsubject, $scope.mailbody);
+    $http.post('https://devops.touchbase.tools/api/leads/sendmail', mail).then(function(e){
+      console.log('success', e);
+    }, function(e){
+      console.log('fail', e);
+    });
+
   };
 
 });

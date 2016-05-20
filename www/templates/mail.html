@@ -22,23 +22,21 @@
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">From</span>
-          <select ng-model="from">
-            <option value="0">--Choose option--</option>
-          </select>
+          <input type="text" placeholder="from" ng-model="from">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Subject</span>
-          <input type="text" placeholder="subject" ng-model="mailsubject">
+          <input type="text" placeholder="subject" ng-model="subject">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Body</span>
-          <textarea placeholder="Comments" ng-model="mailbody"></textarea>
+          <textarea placeholder="Comments" ng-model="body"></textarea>
         </label>
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Template</span>
-          <select>
-            <option value="0">--Choose template--</option>
+          <select ng-model="template">
+            <option ng-repeat="(id, template) in templates" value="{{id}}">{{template}}</option>
           </select>
         </label>
 
