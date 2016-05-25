@@ -35,6 +35,16 @@ angular.module('starter.controllers', [])
   $rootScope.leadname = lead.createdByUser ? lead.createdByUser : "Anonymous";
   $rootScope.leadid = lead.id;
 
+
+  // get lead history
+  var url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/history';
+  $http.get(url).then(function(e){
+    console.log('Lead history', e.data);
+  }, function(e){
+    console.log('fail',e);
+  });
+
+
   $scope.toogle = function(){
     if($scope.fieldsVisible) $scope.fieldsVisible = false;
     else $scope.fieldsVisible = true;
@@ -61,12 +71,11 @@ angular.module('starter.controllers', [])
         $scope.totalCount = e.data.total;
         $scope.curPage++;
 
+        console.log('Lead list', e.data);
+
         e.data.leads.forEach(function(value, index){
-
           value['lastActive'] = moment(value['lastActive'], "YYYYMMDD").fromNow();
-
           $scope.items.push(value);
-          console.log(value['lastActive']);
         });
 
         $rootScope.leads = $scope.items;
