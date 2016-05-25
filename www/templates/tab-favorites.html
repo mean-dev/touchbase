@@ -1,21 +1,19 @@
-<!-- (*) assigned classes -->
+<ion-view view-title="Leads">
 
-<ion-view view-title="Leads" ng-controller="leadsListCtrl">
-
-    <ion-content>
+    <ion-content ng-controller="leadsListCtrl">
 
         <!-- *input-search -->
         <div class="list list-inset input-search">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search" ng-model="leadsSearch">
+                <input type="text" placeholder="Search" ng-model="search">
             </label>
         </div>
 
         <!-- *item-border-off / quit first border of the list item -->
         <ion-list class="item-border-off">
 
-            <ion-item ng-repeat="item in items | filter : leadsSearch" class="item-icon-right" type="item-text-wrap" href="#/account/{{item.id}}">
+            <ion-item ng-repeat="item in items"  class="item-icon-right" type="item-text-wrap" href="#/account/{{item.id}}">
                 <h2>
                     {{item.createdByUser?item.createdByUser:"Anonymous"}}
                 </h2>

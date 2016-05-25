@@ -35,7 +35,6 @@ angular.module('starter.controllers', [])
   $rootScope.leadname = lead.createdByUser ? lead.createdByUser : "Anonymous";
   $rootScope.leadid = lead.id;
 
-
   // get lead history
   var url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/history';
   $http.get(url).then(function(e){
@@ -43,7 +42,6 @@ angular.module('starter.controllers', [])
   }, function(e){
     console.log('fail',e);
   });
-
 
   $scope.toogle = function(){
     if($scope.fieldsVisible) $scope.fieldsVisible = false;
@@ -58,7 +56,9 @@ angular.module('starter.controllers', [])
 
   $scope.curPage = 1;
   $scope.OnPage = 50;
-  $scope.totalCount = 0;
+  $scope.totalCount = 99999999;
+
+  $scope.search = "";
 
   if(LoginService.authdata){
 
@@ -88,14 +88,21 @@ angular.module('starter.controllers', [])
 
   $scope.loadMore = function(){
 
+    console.log('Try to load infinitie');
+
     $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
 
     var url = 'https://devops.touchbase.tools/api/leads?start='+(($scope.curPage)*$scope.OnPage)+'&limit='+$scope.OnPage;
 
+    if($scope.search != '') url += '&search='+$scope.search;
+
+    console.log(url);
+    console.log($scope.curPage*$scope.OnPage , $scope.totalCount);
+
     if($scope.curPage*$scope.OnPage < $scope.totalCount){
       $http.get(url).then(function(e){
 
-        $scope.total = e.data.total;
+        $scope.totalCount = e.data.total;
 
         e.data.leads.forEach(function(value, index){
           $scope.items.push(value);
@@ -111,9 +118,45 @@ angular.module('starter.controllers', [])
 
   };
 
+  $scope.$on('$stateChangeSuccess', function() {
+    $scope.loadMore();
+  });
+
   $scope.mailLead = function(){
     $state.go("mail");
   };
+
+  $scope.$watch('search', function(){
+
+    $scope.curPage = 1;
+    $scope.OnPage = 50;
+    $scope.totalCount = 99999999;
+
+    $scope.items = Array();
+
+    var url = 'https://devops.touchbase.tools/api/leads?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
+    if($scope.search != '') url += '&search='+$scope.search;
+
+    $http.get(url).then(function(e){
+
+      $scope.totalCount = e.data.total;
+      $scope.curPage++;
+
+      console.log('Lead list', e.data);
+
+      e.data.leads.forEach(function(value, index){
+        value['lastActive'] = moment(value['lastActive'], "YYYYMMDD").fromNow();
+        $scope.items.push(value);
+      });
+
+      $rootScope.leads = $scope.items;
+
+    }, function(e){
+      console.log('fail',e);
+    });
+
+
+  });
 
 })
 
