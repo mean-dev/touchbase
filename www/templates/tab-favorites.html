@@ -23,8 +23,11 @@
                     {{item.lastActive}}
                 </p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
-                <ion-option-button href="#/mail/{{item.id}}" ng-click="mailLead(item)" >
+                <ion-option-button href="#/mail/{{item.id}}" ng-click="mailLead(item.id)" >
                     <i class="icon ion-ios-email-outline"></i>
+                </ion-option-button>
+                <ion-option-button href="#" ng-click="deleteLead(item.id)" >
+                  <i class="icon ion-trash-a"></i>
                 </ion-option-button>
             </ion-item>
 

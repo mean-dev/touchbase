@@ -1,0 +1,40 @@
+<!-- (*) assigned classes -->
+
+<style>
+  .content {
+    background-color: white;
+    margin-top: 0px;
+    padding-top: 0px;
+    position: relative;
+  }
+</style>
+
+<ion-view view-title="{{$root.leadname}}" >
+
+  <ion-nav-buttons side="left">
+    <a class="button icon-left ion-chevron-left button-clear button-white" ng-click="goBack()">Back</a>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-ios-download-outline" ng-click="saveinfo()"></a>
+  </ion-nav-buttons>
+
+  <ion-content ng-controller="LeadCtrl">
+
+    <div class="content">
+
+      <div class="card">
+        <div class="item item-text-wrap" style="text-align: center;">
+          <img width="50%" src="https://app.touchbase.tools/asset/257:healthy-pet-challenge-avatar161?stream=1" align="center"/>
+        </div>
+      </div>
+
+      <div class="list">
+        <label class="item item-input" ng-repeat="(field,value) in lead.fields.all">
+          <input type="text" placeholder="{{field}}" ng-model="lead.fields.all[field]">
+        </label>
+      </div>
+
+    </div>
+  </ion-content>
+</ion-view>

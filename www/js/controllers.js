@@ -23,11 +23,8 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('LeadCtrl', function($scope, $state, $ionicHistory, leads, $http, $rootScope, $filter) {
+.controller('LeadCtrl', function($scope, $state, $ionicHistory, leads, $http, $rootScope, $filter, $ionicModal) {
 
-	$scope.goBack = function() {
-    $state.go("tab.leads");
-	};
   var lead = $filter('filter')($rootScope.leads, {'id':$state.params['id']})[0];
 
   $scope.fieldsVisible = false;
@@ -36,52 +33,234 @@ angular.module('starter.controllers', [])
   $rootScope.leadid = lead.id;
 
   // get lead history
-  var url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/history';
+  var url = 'https://devops.touchbase.tools/api/leads/history?leadId='+lead.id;
   $http.get(url).then(function(e){
-    console.log('Lead history', e.data);
+    lead.history = e.data;
   }, function(e){
     console.log('fail',e);
   });
 
+  // get lead lists
+  url = 'https://devops.touchbase.tools/api/leads/list?leadId='+lead.id;
+  $http.get(url).then(function(e){
+      lead.lists = e.data.data;
+  }, function(e){ console.log('fail',e); });
+
+  // get all available lists
+  url = 'https://devops.touchbase.tools/api/lists';
+  lead.alllists = [];
+  $http.get(url).then(function(e){
+      angular.forEach(e.data, function(value,key){
+        lead.alllists.push(value);
+      });
+    console.log(lead.alllists);
+  }, function(e){ console.log('fail',e); });
+
+
+  // get lead campaigns
+  url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/campaigns';
+  lead.campaigns = [];
+  $http.get(url).then(function(e){
+    lead.campaigns = e.data.campaigns;
+  }, function(e){ console.log('fail',e); });
+
+
+  // get all available compaigns
+  url = 'https://devops.touchbase.tools/api/campaigns';
+  lead.allcompaigns = [];
+  $http.get(url).then(function(e){
+    lead.allcompaigns = e.data.campaigns;
+    console.log("campaigns",e.data);
+  }, function(e){ console.log('fail',e); });
+
+  // get notes
+  url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/notes/';
+  $http.get(url).then(function(e){
+    console.log(url, e.data);
+    lead.notes = e.data.notes;
+  }, function(e){ console.log('fail',e); });
+
   $scope.toogle = function(){
     if($scope.fieldsVisible) $scope.fieldsVisible = false;
     else $scope.fieldsVisible = true;
-  }
+  };
+
+  $scope.saveinfo = function(){
+
+    // get lead history
+    var url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/edit';
+    $http.patch(url, lead.fields.all).then(function(e){
+      console.log(e.data);
+    }, function(e){
+      console.log('fail',e);
+    });
+
+  };
+
+  $scope.goBack = function() {
+    $state.go("tab.leads");
+  };
+
+  $scope.removeLeadList = function (lead,list) {
+    console.log('Remove from lead -'+lead+' list '+list);
+  };
+
+  $scope.removeList = function(id){
+
+    // get lead history
+    var url = 'https://devops.touchbase.tools/api/lists/'+id+'/lead/remove/'+lead.id;
+
+    $http.post(url).then(function(e){
+
+      // get lead lists
+      url = 'https://devops.touchbase.tools/api/leads/list?leadId='+lead.id;
+      $http.get(url).then(function(e){
+        lead.lists = e.data.data;
+      }, function(e){ console.log('fail',e); });
+
+    }, function(e){
+      console.log('fail',e);
+    });
+
+    console.log('remove list with id', id);
+  };
+
+  $scope.addList = function(){
+
+    var url = 'https://devops.touchbase.tools/api/lists/'+$scope.newlist.id+'/lead/add/'+lead.id;
+
+    $http.post(url).then(function(e){
+
+      // get lead lists
+      url = 'https://devops.touchbase.tools/api/leads/list?leadId='+lead.id;
+      $http.get(url).then(function(e){
+        lead.lists = e.data.data;
+      }, function(e){ console.log('fail',e); });
+
+    }, function(e){
+      console.log('fail',e);
+    });
+
+    console.log('Add list', $scope.newlist, url );
+  };
+
+  $scope.deleteCampaign = function(id){
+
+      var url = 'https://devops.touchbase.tools/api/campaigns/'+id+'/lead/remove/'+lead.id;
+
+      $http.post(url).then(function(e){
+
+        // get lead campaigns
+        url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/campaigns';
+        $http.get(url).then(function(e){
+          lead.campaigns = [];
+          lead.campaigns = e.data.campaigns;
+        }, function(e){ console.log('fail',e); });
+
+      }, function(e){
+        console.log('fail',e);
+      });
+
+  };
+
+  $scope.addCampaign = function(){
+
+    var url = 'https://devops.touchbase.tools/api/campaigns/'+$scope.newcompaign.id+'/lead/add/'+lead.id;
+
+    $http.post(url).then(function(e){
+
+      // get lead campaigns
+      url = 'https://devops.touchbase.tools/api/leads/'+lead.id+'/campaigns';
+
+      $http.get(url).then(function(e){
+        lead.campaigns = [];
+        lead.campaigns = e.data.campaigns;
+      }, function(e){ console.log('fail',e); });
+
+    }, function(e){
+      console.log('fail',e);
+    });
+
+  };
+
+  $ionicModal.fromTemplateUrl('confirm-deletion.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+  }).then(function(modal) {
+      $scope.modal = modal;
+  });
+
+  $scope.openModal = function() {
+      $scope.modal.show();
+  };
 
 })
 
 .controller('leadsListCtrl',function($scope, leads, LoginService, $http, $rootScope, $state){
 
   $scope.items = new Array();
-
   $scope.curPage = 1;
   $scope.OnPage = 50;
   $scope.totalCount = 99999999;
-
   $scope.search = "";
 
   if(LoginService.authdata){
 
     $http.defaults.headers.common.Authorization = 'Bearer '+LoginService.authdata.access_token;
 
-    var url = 'https://devops.touchbase.tools/api/leads?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
+    if(!$rootScope.currentuid){
+      var url = 'https://devops.touchbase.tools/api/u/id';
+      $http.get(url).then(function(e){
 
-    $http.get(url).then(function(e){
+          $rootScope.currentuid = e.data.userid;
+          console.log('Recivied uid', $rootScope.currentuid);
 
-        $scope.totalCount = e.data.total;
-        $scope.curPage++;
+          url = 'https://devops.touchbase.tools/api/leads?start='+(($scope.curPage - 1)*$scope.OnPage)+'&limit='+$scope.OnPage;
+          url += '';
 
-        console.log('Lead list', e.data);
+          console.log('Url for get leads list', url);
 
-        e.data.leads.forEach(function(value, index){
-          value['lastActive'] = moment(value['lastActive'], "YYYYMMDD").fromNow();
-          $scope.items.push(value);
-        });
+          $http.get(url).then(function(e){
+            $scope.totalCount = e.data.total;
+            $scope.curPage++;
+            e.data.leads.forEach(function(value, index){
+              value['lastActive'] = moment(value['lastActive'], "YYYYMMDD").fromNow();
+              $scope.items.push(value);
+            });
+            $rootScope.leads = $scope.items;
+          }, function(e){
 
-        $rootScope.leads = $scope.items;
+            console.log('fail',e);
+
+          });
 
       }, function(e){
-        console.log('fail',e);
+          console.log('fail',e);
+      });
+
+    }else{
+
+    }
+
+  };
+
+  $scope.deleteLead = function(id){
+
+    // get lead history
+    var url = 'https://devops.touchbase.tools/api/leads/'+id+'/delete';
+
+    $http.delete(url).then(function(e){
+
+      $scope.items = new Array();
+      $scope.curPage = 1;
+      $scope.OnPage = 50;
+      $scope.totalCount = 99999999;
+      $scope.search = "";
+
+      $scope.loadMore();
+
+    }, function(e){
+      console.log('fail',url, e);
     });
 
   };
@@ -96,15 +275,13 @@ angular.module('starter.controllers', [])
 
     if($scope.search != '') url += '&search='+$scope.search;
 
-    console.log(url);
-    console.log($scope.curPage*$scope.OnPage , $scope.totalCount);
-
     if($scope.curPage*$scope.OnPage < $scope.totalCount){
       $http.get(url).then(function(e){
 
         $scope.totalCount = e.data.total;
 
         e.data.leads.forEach(function(value, index){
+          value['lastActive'] = moment(value['lastActive'], "YYYYMMDD").fromNow();
           $scope.items.push(value);
         });
 
@@ -122,8 +299,8 @@ angular.module('starter.controllers', [])
     $scope.loadMore();
   });
 
-  $scope.mailLead = function(){
-    $state.go("mail");
+  $scope.mailLead = function(id){
+    $state.go("/mail/"+id);
   };
 
   $scope.$watch('search', function(){
@@ -216,6 +393,10 @@ angular.module('starter.controllers', [])
 
 .controller('MailCtrl',function($scope, $state, leads, LoginService, $http, $rootScope){
 
+  var leadid = $state.params['id'];
+
+  console.log($state.params);
+
   $scope.goBack = function(){
     $state.go("tab.leads");
   };
@@ -233,20 +414,42 @@ angular.module('starter.controllers', [])
     console.log('fail',e);
   });
 
-  $scope.sendMail = function(lead){
+  $scope.$watch('template', function(){
+    //gettemplate
+    var url = 'https://devops.touchbase.tools/api/leads/gettemplate/?templateId='+$scope.template;
+    $http.get(url).then(function(e){
+
+      console.log('Try to encode!!!',decodeURI(e.data.subject) );
+
+      $scope.from = e.data.from;
+      $scope.subject = decodeURI(e.data.subject);
+      $scope.body = decodeURI(e.data.body);
+
+    }, function(e){
+      console.log('fail',e);
+    });
+
+
+  });
+
+  $scope.sendMail = function(lead, $ionicHistory){
 
     var mail = {
-      'id' : lead, // lead id
+      'id' : leadid, // lead id
       'from' : $scope.from, // from
       'subject' : $scope.subject, // mail subject
       'body' : $scope.body // mail body
     };
 
     $http.post('https://devops.touchbase.tools/api/leads/sendmail', mail).then(function(e){
-      console.log('success', e);
+      console.log('Sended');
     }, function(e){
       console.log('fail', e);
     });
+
+    $scope.cancel = function(){
+      $ionicHistory.goBack();
+    }
 
   };
 

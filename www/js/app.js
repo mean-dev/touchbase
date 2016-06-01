@@ -72,6 +72,11 @@ var mainApp = angular.module('starter', ['ionic','ionic.service.core', 'starter.
         templateUrl: 'templates/tab-account.html',
         controller: 'LeadCtrl'
     })
+    .state('lead-edit', {
+      url: '/editlead/:id',
+      templateUrl: 'templates/editlead.html',
+      controller: 'LeadCtrl'
+    })
     .state('mail', {
       url: '/mail/:id',
       templateUrl: 'templates/mail.html',

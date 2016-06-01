@@ -35,7 +35,7 @@
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Template</span>
-          <select ng-model="template">
+          <select ng-model="template" style="width: 60%; overflow: hidden;">
             <option ng-repeat="(id, template) in templates" value="{{id}}">{{template}}</option>
           </select>
         </label>

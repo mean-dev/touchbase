@@ -9,46 +9,105 @@
 	}
 </style>
 
+<script id="confirm-deletion.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Remove from list?</h1>
+    </ion-header-bar>
+    <ion-content>
+      Do you realy want to delete lead from list?
+    </ion-content>
+  </ion-modal-view>
+</script>
+
 <ion-view view-title="{{$root.leadname}}" >
 
 	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-ios-email-outline" href="#/mail/{{$root.leadid}}"></a>
-  </ion-nav-buttons>
+		<a class="button button-icon icon ion-edit" href="#/editlead/{{$root.leadid}}"></a>
+    <a class="button button-icon icon ion-ios-email-outline" href="#/mail/{{$root.leadid}}"></a>
+  </ion-nav-buttons><!-- navigation right -->
+
 	<ion-nav-buttons side="left">
 		<a class="button icon-left ion-chevron-left button-clear button-white" ng-click="goBack()">Back</a>
-	</ion-nav-buttons>
+	</ion-nav-buttons><!-- navigation left -->
 
 	<ion-content ng-controller="LeadCtrl">
-
 		<div class="content">
-
       <div class="card">
-        <div class="item item-text-wrap">
-          <img width="100%" src="https://app.touchbase.tools/asset/257:healthy-pet-challenge-avatar161?stream=1" align="center"/>
+        <div class="item item-text-wrap" style="text-align: center;">
+          <img width="50%" src="https://app.touchbase.tools/asset/257:healthy-pet-challenge-avatar161?stream=1" align="center"/>
         </div>
-      </div>
-
+      </div><!-- Avatar -->
 			<ion-list>
 
-        <div class="item item-divider">
-          Lists
-        </div>
-        <a class="item item-avatar">
-          <p><span class="name">Lead lists</span></p>
-        </a>
+        <div class="item item-divider">Lists</div>
+        <a class="item">
+          <div class="list list-inset">
+
+            <table>
+              <tr>
+                <td>
+                  <select ng-model="newlist" ng-options="item as item.name for item in lead.alllists track by item.id">
+                    <option value="">-- choose list --</option>
+                  </select>
+                  &nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+                  <i ng-click="addList()" class="ionic-icon ion-android-add-circle"></i>
+                </td>
+              </tr>
+              <tr ng-repeat="list in lead.lists">
+                <td>{{list.title}}&nbsp;&nbsp;&nbsp;</td><td><i ng-click="removeList(list.id)" class="ionic-icon ion-close-circled"></i></td>
+              </tr>
+            </table>
+
+          </div>
+        </a><!-- Lead lists -->
+
+        <div class="item item-divider">Compaigns</div>
+        <a class="item">
+          <div class="list list-inset">
+
+            <table>
+
+              <tr>
+                <td>
+                  <select ng-model="newcompaign" ng-options="item as item.name for item in lead.allcompaigns track by item.id">
+                    <option value="">-- choose compaign --</option>
+                  </select>
+                  &nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+                  <i ng-click="addCampaign()" class="ionic-icon ion-android-add-circle"></i>
+                </td>
+              </tr>
+
+              <tr ng-repeat="compaign in lead.campaigns">
+                <td>{{compaign.name}}&nbsp;&nbsp;&nbsp;</td><td><i ng-click="deleteCampaign(compaign.id)" class="ionic-icon ion-close-circled"></i></td>
+              </tr>
+            </table>
+
+          </div>
+        </a><!-- Compaigns lists -->
+
+        <div class="item item-divider">Notes</div>
+        <a class="item">
+          <div class="list list-inset">
+
+            <table>
+              <tr ng-repeat="note in lead.notes">
+                <td>{{note.name}}&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+            </table>
+
+          </div>
+        </a><!-- Notes -->
 
         <div class="item item-divider">
           Date added
         </div>
         <a class="item item-avatar">
           <p><span class="name">{{lead.dateAdded}}</span></p>
-        </a>
-
-        <div class="item item-divider">
-          Last active
-        </div>
-        <a class="item item-avatar">
-          <p><span class="name">{{lead.lastActive}}</span></p>
         </a>
 
         <div class="item item-divider">
@@ -70,8 +129,8 @@
           </p>
 				</a>
 
+			</ion-list><!-- Main list-->
+		</div><!-- Content -->
+	</ion-content><!-- Controller -->
 
-			</ion-list>
-		</div>
-	</ion-content>
 </ion-view>
